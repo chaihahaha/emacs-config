@@ -56,17 +56,9 @@
 (el-get 'sync)
 
 (package-initialize)
-(when (not package-archive-contents)
-  (package-refresh-contents))
-(defvar myPackages
-  '(elpy
-    ein
-   ))
 
-(mapc #'(lambda (package)
-    (unless (package-installed-p package)
-      (package-install package)))
-      myPackages)
+
+
 
 (elpy-enable)
 
