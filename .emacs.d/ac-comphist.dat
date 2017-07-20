@@ -1,1 +1,22 @@
-(nil)
+((("highlight-parentheses-mode" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0])
+  ("stdio" .
+   [0 0 0 1 0])
+  ("argv" .
+   [0 0 0 2])
+  ("require" .
+   [0 0 0 0 0 0 2])
+  ("add-hook" .
+   [0 0 0 0 0 1 0 0])
+  ("elpy-mode-hook" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0])
+  ("py-autopep8" .
+   [0 0 0 1 0 0 0 0 0 0 0])
+  ("highlight-paren-mode" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0])
+  ("flyspell-mode-on" .
+   [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0])
+  ("global-highlight-parentheses-mode" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0])
+  ("helm-config" .
+   [0 0 0 0 0 0 0 0 0 0 1])))

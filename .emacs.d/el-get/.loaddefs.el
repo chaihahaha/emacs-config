@@ -690,6 +690,601 @@ Display a list of packages.
 
 ;;;***
 
+;;;### (autoloads nil "emacs-async/async" "emacs-async/async.el"
+;;;;;;  (22858 36353 843834 519000))
+;;; Generated autoloads from emacs-async/async.el
+
+(autoload 'async-start-process "emacs-async/async" "\
+Start the executable PROGRAM asynchronously.  See `async-start'.
+PROGRAM is passed PROGRAM-ARGS, calling FINISH-FUNC with the
+process object when done.  If FINISH-FUNC is nil, the future
+object will return the process object when the program is
+finished.  Set DEFAULT-DIRECTORY to change PROGRAM's current
+working directory.
+
+\(fn NAME PROGRAM FINISH-FUNC &rest PROGRAM-ARGS)" nil nil)
+
+(autoload 'async-start "emacs-async/async" "\
+Execute START-FUNC (often a lambda) in a subordinate Emacs process.
+When done, the return value is passed to FINISH-FUNC.  Example:
+
+    (async-start
+       ;; What to do in the child process
+       (lambda ()
+         (message \"This is a test\")
+         (sleep-for 3)
+         222)
+
+       ;; What to do when it finishes
+       (lambda (result)
+         (message \"Async process done, result should be 222: %s\"
+                  result)))
+
+If FINISH-FUNC is nil or missing, a future is returned that can
+be inspected using `async-get', blocking until the value is
+ready.  Example:
+
+    (let ((proc (async-start
+                   ;; What to do in the child process
+                   (lambda ()
+                     (message \"This is a test\")
+                     (sleep-for 3)
+                     222))))
+
+        (message \"I'm going to do some work here\") ;; ....
+
+        (message \"Waiting on async process, result should be 222: %s\"
+                 (async-get proc)))
+
+If you don't want to use a callback, and you don't care about any
+return value from the child process, pass the `ignore' symbol as
+the second argument (if you don't, and never call `async-get', it
+will leave *emacs* process buffers hanging around):
+
+    (async-start
+     (lambda ()
+       (delete-file \"a remote file on a slow link\" nil))
+     'ignore)
+
+Note: Even when FINISH-FUNC is present, a future is still
+returned except that it yields no value (since the value is
+passed to FINISH-FUNC).  Call `async-get' on such a future always
+returns nil.  It can still be useful, however, as an argument to
+`async-ready' or `async-wait'.
+
+\(fn START-FUNC &optional FINISH-FUNC)" nil nil)
+
+;;;***
+
+;;;### (autoloads nil "emacs-async/async-bytecomp" "emacs-async/async-bytecomp.el"
+;;;;;;  (22858 36353 843834 519000))
+;;; Generated autoloads from emacs-async/async-bytecomp.el
+
+(autoload 'async-byte-recompile-directory "emacs-async/async-bytecomp" "\
+Compile all *.el files in DIRECTORY asynchronously.
+All *.elc files are systematically deleted before proceeding.
+
+\(fn DIRECTORY &optional QUIET)" nil nil)
+
+(defvar async-bytecomp-package-mode nil "\
+Non-nil if Async-Bytecomp-Package mode is enabled.
+See the `async-bytecomp-package-mode' command
+for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `async-bytecomp-package-mode'.")
+
+(custom-autoload 'async-bytecomp-package-mode "emacs-async/async-bytecomp" nil)
+
+(autoload 'async-bytecomp-package-mode "emacs-async/async-bytecomp" "\
+Byte compile asynchronously packages installed with package.el.
+Async compilation of packages can be controlled by
+`async-bytecomp-allowed-packages'.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "emacs-async/dired-async" "emacs-async/dired-async.el"
+;;;;;;  (22858 36353 843834 519000))
+;;; Generated autoloads from emacs-async/dired-async.el
+
+(defvar dired-async-mode nil "\
+Non-nil if Dired-Async mode is enabled.
+See the `dired-async-mode' command
+for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `dired-async-mode'.")
+
+(custom-autoload 'dired-async-mode "emacs-async/dired-async" nil)
+
+(autoload 'dired-async-mode "emacs-async/dired-async" "\
+Do dired actions asynchronously.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "flymake/flymake" "flymake/flymake.el" (22858
+;;;;;;  35116 392777 533000))
+;;; Generated autoloads from flymake/flymake.el
+
+(autoload 'flymake-mode "flymake/flymake" "\
+Toggle on-the-fly syntax checking.
+With a prefix argument ARG, enable the mode if ARG is positive,
+and disable it otherwise.  If called from Lisp, enable the mode
+if ARG is omitted or nil.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'flymake-mode-on "flymake/flymake" "\
+Turn flymake mode on.
+
+\(fn)" nil nil)
+
+(autoload 'flymake-mode-off "flymake/flymake" "\
+Turn flymake mode off.
+
+\(fn)" nil nil)
+
+(autoload 'flymake-find-file-hook "flymake/flymake" "\
+
+
+\(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads nil "flyspell/flyspell-1.7q" "flyspell/flyspell-1.7q.el"
+;;;;;;  (22858 37261 179115 690000))
+;;; Generated autoloads from flyspell/flyspell-1.7q.el
+
+(defvar flyspell-mode-line-string " Fly" "\
+*String displayed on the modeline when flyspell is active.
+Set this to nil if you don't want a modeline indicator.")
+
+(custom-autoload 'flyspell-mode-line-string "flyspell/flyspell-1.7q" t)
+
+(autoload 'flyspell-prog-mode "flyspell/flyspell-1.7q" "\
+Turn on `flyspell-mode' for comments and strings.
+
+\(fn)" t nil)
+
+(defvar flyspell-mode nil)
+
+(defvar flyspell-mode-map (make-sparse-keymap))
+
+(autoload 'flyspell-mode "flyspell/flyspell-1.7q" "\
+Minor mode performing on-the-fly spelling checking.
+Ispell is automatically spawned on background for each entered words.
+The default flyspell behavior is to highlight incorrect words.
+With no argument, this command toggles Flyspell mode.
+With a prefix argument ARG, turn Flyspell minor mode on iff ARG is positive.
+  
+Bindings:
+\\[ispell-word]: correct words (using Ispell).
+\\[flyspell-auto-correct-word]: automatically correct word.
+\\[flyspell-auto-correct-previous-word]: automatically correct the last misspelled word.
+\\[flyspell-correct-word] (or down-mouse-2): popup correct words.
+
+Hooks:
+This runs `flyspell-mode-hook' after flyspell is entered.
+
+Remark:
+`flyspell-mode' uses `ispell-mode'.  Thus all Ispell options are
+valid.  For instance, a personal dictionary can be used by
+invoking `ispell-change-dictionary'.
+
+Consider using the `ispell-parser' to check your text.  For instance
+consider adding:
+\(add-hook 'tex-mode-hook (function (lambda () (setq ispell-parser 'tex))))
+in your .emacs file.
+
+\\[flyspell-region] checks all words inside a region.
+\\[flyspell-buffer] checks the whole buffer.
+
+\(fn &optional ARG)" t nil)
+
+(if (fboundp 'add-minor-mode) (add-minor-mode 'flyspell-mode 'flyspell-mode-line-string flyspell-mode-map nil 'flyspell-mode) (or (assoc 'flyspell-mode minor-mode-alist) (setq minor-mode-alist (cons '(flyspell-mode flyspell-mode-line-string) minor-mode-alist))) (or (assoc 'flyspell-mode minor-mode-map-alist) (setq minor-mode-map-alist (cons (cons 'flyspell-mode flyspell-mode-map) minor-mode-map-alist))))
+
+(autoload 'flyspell-version "flyspell/flyspell-1.7q" "\
+The flyspell version
+
+\(fn)" t nil)
+
+(autoload 'flyspell-mode-off "flyspell/flyspell-1.7q" "\
+Turn Flyspell mode off.
+
+\(fn)" nil nil)
+
+(autoload 'flyspell-region "flyspell/flyspell-1.7q" "\
+Flyspell text between BEG and END.
+
+\(fn BEG END)" t nil)
+
+(autoload 'flyspell-buffer "flyspell/flyspell-1.7q" "\
+Flyspell whole buffer.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "markdown-mode/markdown-mode" "markdown-mode/markdown-mode.el"
+;;;;;;  (22856 41906 92676 640000))
+;;; Generated autoloads from markdown-mode/markdown-mode.el
+
+(autoload 'markdown-mode "markdown-mode/markdown-mode" "\
+Major mode for editing Markdown files.
+
+\(fn)" t nil)
+
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode) t)
+
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode) t)
+
+(autoload 'gfm-mode "markdown-mode/markdown-mode" "\
+Major mode for editing GitHub Flavored Markdown files.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "pony-mode/src/pony-mode" "pony-mode/src/pony-mode.el"
+;;;;;;  (22887 31949 416634 143000))
+;;; Generated autoloads from pony-mode/src/pony-mode.el
+
+(autoload 'pony-read-file "pony-mode/src/pony-mode" "\
+Read the contents of `filepath'
+
+\(fn FILEPATH)" nil nil)
+
+(autoload 'pony-reload-mode "pony-mode/src/pony-mode" "\
+
+
+\(fn)" t nil)
+
+(autoload 'pony-command-if-exists "pony-mode/src/pony-mode" "\
+Run `command` if it exists
+
+\(fn PROC-NAME COMMAND ARGS)" nil nil)
+
+(autoload 'pony-get-settings-file-basename "pony-mode/src/pony-mode" "\
+Return the name of the settings file to use for this
+project. By default this is 'settings', but it can be changed
+locally with .dir-locals.el.
+
+\(fn)" nil nil)
+
+(autoload 'pony-setting-p "pony-mode/src/pony-mode" "\
+Predicate to determine whether a `setting' exists for the current project
+
+\(fn SETTING)" nil nil)
+
+(autoload 'pony-get-setting "pony-mode/src/pony-mode" "\
+Get the pony settings.py value for `setting`
+
+\(fn SETTING)" nil nil)
+
+(autoload 'pony-setting "pony-mode/src/pony-mode" "\
+Interactively display a setting value in the minibuffer
+
+\(fn)" t nil)
+
+(autoload 'pony-buildout-cmd "pony-mode/src/pony-mode" "\
+Return the buildout command or nil if we're not in a buildout
+
+\(fn)" nil nil)
+
+(autoload 'pony-buildout-list-bin "pony-mode/src/pony-mode" "\
+List the commands available in the buildout bin dir
+
+\(fn)" nil nil)
+
+(autoload 'pony-buildout "pony-mode/src/pony-mode" "\
+Run buildout again on the current project
+
+\(fn)" t nil)
+
+(autoload 'pony-buildout-bin "pony-mode/src/pony-mode" "\
+Run a script from the buildout bin/ dir
+
+\(fn)" t nil)
+
+(autoload 'pony-db-shell "pony-mode/src/pony-mode" "\
+Run interpreter for this project's default database as an inferior process.
+
+\(fn)" t nil)
+
+(autoload 'pony-fabric-p "pony-mode/src/pony-mode" "\
+Is this project using fabric?
+
+\(fn)" nil nil)
+
+(autoload 'pony-fabric-list-commands "pony-mode/src/pony-mode" "\
+List of all fabric commands for project as strings
+
+\(fn)" nil nil)
+
+(autoload 'pony-fabric-run "pony-mode/src/pony-mode" "\
+Run fabric command
+
+\(fn CMD)" nil nil)
+
+(autoload 'pony-fabric "pony-mode/src/pony-mode" "\
+Run a fabric command
+
+\(fn)" t nil)
+
+(autoload 'pony-fabric-deploy "pony-mode/src/pony-mode" "\
+Deploy project with fab deploy
+
+\(fn)" t nil)
+
+(autoload 'pony-goto-template "pony-mode/src/pony-mode" "\
+Jump-to-template-at-point
+
+\(fn)" t nil)
+?
+
+(autoload 'pony-resolve "pony-mode/src/pony-mode" "\
+Jump to the view file that URL resolves to
+
+This feature is somewhat experimental and known to break in some cases.
+
+Bug reports welcome. Patches even more so :)
+
+\(fn URL)" t nil)
+
+(autoload 'pony-goto-settings "pony-mode/src/pony-mode" "\
+
+
+\(fn)" t nil)
+
+(autoload 'pony-manage "pony-mode/src/pony-mode" "\
+Interactively call the pony manage command.
+
+Second string that is read from minibuffer may be an actual
+list of space separated arguments for the previously chosen management
+command. If some of the arguments contain space itself they should be quoted
+with double quotes like \"...\".
+
+\(fn)" t nil)
+
+(autoload 'pony-flush "pony-mode/src/pony-mode" "\
+Flush the app
+
+\(fn)" t nil)
+
+(autoload 'pony-dumpdata "pony-mode/src/pony-mode" "\
+Dumpdata to json
+
+\(fn)" t nil)
+
+(autoload 'pony-loaddata "pony-mode/src/pony-mode" "\
+Load a fixture into the current project's dev database
+
+\(fn)" t nil)
+
+(autoload 'pony-runserver "pony-mode/src/pony-mode" "\
+Start the Django development server.
+
+If the server is currently running, just switch to the buffer.
+
+If you are currently in the *ponyserver* buffer, restart the server
+
+\(fn)" t nil)
+
+(autoload 'pony-stopserver "pony-mode/src/pony-mode" "\
+Stop the dev server
+
+\(fn)" t nil)
+
+(autoload 'pony-restart-server "pony-mode/src/pony-mode" "\
+Restart the pony Django dev server.
+Django extras does this better with the Werkzeug server, but sometimes
+you can't have nice things.
+
+\(fn)" t nil)
+
+(autoload 'pony-temp-server "pony-mode/src/pony-mode" "\
+Relatively regularly during development, I need/want to set up a development
+server instance either on a nonstandard (or second) port, or that will be accessible
+to the outside world for some reason. Meanwhile, i don't want to set my default host to 0.0.0.0
+This function allows you to run a server with a 'throwaway' host:port
+
+\(fn)" t nil)
+
+(autoload 'pony-browser "pony-mode/src/pony-mode" "\
+Open a tab at the development server
+
+\(fn)" t nil)
+
+(autoload 'pony-shell "pony-mode/src/pony-mode" "\
+Open a Python shell with the current pony project's context loaded.
+
+If the project has the django_extras package installed, then use the excellent
+`shell_plus' command. Otherwise, fall back to manage.py shell 
+
+\(fn)" t nil)
+
+(autoload 'pony-startapp "pony-mode/src/pony-mode" "\
+Run the pony startapp command
+
+\(fn)" t nil)
+
+(autoload 'pony-syncdb "pony-mode/src/pony-mode" "\
+Run Syncdb on the current project
+
+\(fn)" t nil)
+
+(autoload 'pony-south-convert "pony-mode/src/pony-mode" "\
+Convert an existing app to south
+
+\(fn)" t nil)
+
+(autoload 'pony-south-schemamigration "pony-mode/src/pony-mode" "\
+Create migration for modification
+
+\(fn)" t nil)
+
+(autoload 'pony-south-migrate "pony-mode/src/pony-mode" "\
+Migrate app
+
+\(fn)" t nil)
+
+(autoload 'pony-south-initial "pony-mode/src/pony-mode" "\
+Run the initial south migration for an app
+
+\(fn)" t nil)
+
+(autoload 'pony-celeryd-start "pony-mode/src/pony-mode" "\
+Run celeryd
+
+\(fn)" t nil)
+
+(autoload 'pony-celeryd-stop "pony-mode/src/pony-mode" "\
+Stop celeryd
+
+\(fn)" t nil)
+
+(autoload 'pony-celeryd-restart "pony-mode/src/pony-mode" "\
+Restart celeryd
+
+\(fn)" t nil)
+
+(autoload 'pony-tags "pony-mode/src/pony-mode" "\
+Generate new tags table
+
+\(fn)" t nil)
+
+(autoload 'pony-test "pony-mode/src/pony-mode" "\
+Run the test(s) given by `command'.
+
+\(fn COMMAND)" t nil)
+
+(autoload 'pony-test-open "pony-mode/src/pony-mode" "\
+Open the file in a traceback at the line specified
+
+\(fn)" t nil)
+
+(autoload 'pony-test-goto-err "pony-mode/src/pony-mode" "\
+Go to the file and line of the last stack trace in a test buffer
+
+\(fn)" t nil)
+
+(autoload 'pony-test-up "pony-mode/src/pony-mode" "\
+Move up the traceback one level
+
+\(fn)" t nil)
+
+(autoload 'pony-test-down "pony-mode/src/pony-mode" "\
+Move up the traceback one level
+
+\(fn)" t nil)
+
+(autoload 'pony-test-hl-files "pony-mode/src/pony-mode" "\
+Highlight instances of Files in Test buffers
+
+\(fn)" nil nil)
+
+(autoload 'pony-load-snippets "pony-mode/src/pony-mode" "\
+Load snippets if yasnippet installed and pony-snippet-dir is set
+
+\(fn)" t nil)
+
+(autoload 'pony-mode-disable "pony-mode/src/pony-mode" "\
+Turn off pony-mode in this buffer
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "py-autopep8/py-autopep8" "py-autopep8/py-autopep8.el"
+;;;;;;  (22855 25700 928233 280000))
+;;; Generated autoloads from py-autopep8/py-autopep8.el
+
+(autoload 'py-autopep8 "py-autopep8/py-autopep8" "\
+Deprecated! Use py-autopep8-buffer instead.
+
+\(fn)" t nil)
+
+(autoload 'py-autopep8-buffer "py-autopep8/py-autopep8" "\
+Uses the \"autopep8\" tool to reformat the current buffer.
+
+\(fn)" t nil)
+
+(autoload 'py-autopep8-enable-on-save "py-autopep8/py-autopep8" "\
+Pre-save hook to be used before running autopep8.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "uuidgen/uuidgen" "uuidgen/uuidgen.el" (22856
+;;;;;;  41306 416111 978000))
+;;; Generated autoloads from uuidgen/uuidgen.el
+
+(autoload 'insert-uuid-cid "uuidgen/uuidgen" "\
+Insert UUID string in CID format that is suitable for COM definition.
+If UUID is nil will generate UUIDGEN-4 automatically.
+You customize `uuidgen-cid-format-string' to change the default format.
+
+\(fn UUID)" t nil)
+
+(autoload 'uuidgen "uuidgen/uuidgen" "\
+Insert UUIDv4 at point. If TIME-BASED is non-nil, insert UUIDv1 instead.
+
+\(fn TIME-BASED)" t nil)
+
+;;;***
+
+;;;### (autoloads nil "web-server/web-server" "web-server/web-server.el"
+;;;;;;  (22856 41317 689539 702000))
+;;; Generated autoloads from web-server/web-server.el
+
+(autoload 'ws-start "web-server/web-server" "\
+Start a server using HANDLERS and return the server object.
+
+HANDLERS may be a single function (which is then called on every
+request) or a list of conses of the form (MATCHER . FUNCTION),
+where the FUNCTION associated with the first successful MATCHER
+is called.  Handler functions are called with two arguments, the
+process and the request object.
+
+A MATCHER may be either a function (in which case it is called on
+the request object) or a cons cell of the form (KEYWORD . STRING)
+in which case STRING is matched against the value of the header
+specified by KEYWORD.
+
+Any supplied NETWORK-ARGS are assumed to be keyword arguments for
+`make-network-process' to which they are passed directly.
+
+For example, the following starts a simple hello-world server on
+port 8080.
+
+  (ws-start
+   (lambda (request)
+     (with-slots (process headers) request
+       (process-send-string process
+        \"HTTP/1.1 200 OK\\r\\nContent-Type: text/plain\\r\\n\\r\\nhello world\")))
+   8080)
+
+Equivalently, the following starts an identical server using a
+function MATCH and the `ws-response-header' convenience
+function.
+
+  (ws-start
+   '(((lambda (_) t) .
+      (lambda (proc request)
+        (ws-response-header proc 200 '(\"Content-type\" . \"text/plain\"))
+        (process-send-string proc \"hello world\")
+        t)))
+   8080)
+
+\(fn HANDLERS PORT &optional LOG-BUFFER &rest NETWORK-ARGS)" nil nil)
+
+;;;***
+
 ;;;### (autoloads nil nil ("auto-complete/auto-complete-pkg.el" "deferred/concurrent.el"
 ;;;;;;  "deferred/deferred.el" "ein/lisp/debug-ein.el" "ein/lisp/ein-ac.el"
 ;;;;;;  "ein/lisp/ein-cell-edit.el" "ein/lisp/ein-cell-output.el"
@@ -706,10 +1301,13 @@ Display a list of packages.
 ;;;;;;  "el-get/el-get-autoloading.el" "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
 ;;;;;;  "el-get/el-get-core.el" "el-get/el-get-custom.el" "el-get/el-get-dependencies.el"
 ;;;;;;  "el-get/el-get-install.el" "el-get/el-get-methods.el" "el-get/el-get-notify.el"
-;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el" "fuzzy/fuzzy.el"
+;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el" "emacs-async/async-pkg.el"
+;;;;;;  "emacs-async/async-test.el" "emacs-async/smtpmail-async.el"
+;;;;;;  "fuzzy/fuzzy.el" "pony-mode/src/pony-mode-pkg.el" "pony-mode/src/pony-tpl.el"
 ;;;;;;  "popup/popup.el" "request/request-deferred.el" "request/request.el"
+;;;;;;  "web-server/web-server-status-codes.el" "web-server/web-server-test.el"
 ;;;;;;  "websocket/websocket-functional-test.el" "websocket/websocket-test.el"
-;;;;;;  "websocket/websocket.el") (22854 1590 193948 679000))
+;;;;;;  "websocket/websocket.el") (22887 31949 416634 143000))
 
 ;;;***
 
