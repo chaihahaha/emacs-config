@@ -48,7 +48,6 @@
 
 (package-initialize)
 (show-paren-mode)
-(global-highlight-parentheses-mode)
 
 ;;(elpy-enable)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
