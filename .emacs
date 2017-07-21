@@ -8,7 +8,7 @@
                 ("melpa-stable" . "https://stable.melpa.org/packages/")))
  (package-refresh-contents)
  (package-initialize)
-; (package-install 'el-get)
+ (package-install 'el-get)
  (require 'el-get))
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
@@ -42,6 +42,4 @@
 (elpy-enable)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 (add-hook 'elpy-mode-hook 'rainbow-delimiters-mode)
-(require 'pony-mode)
-(require 'helm-config)
 
