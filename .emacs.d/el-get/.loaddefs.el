@@ -806,8 +806,8 @@ Do dired actions asynchronously.
 
 ;;;***
 
-;;;### (autoloads nil "flymake/flymake" "flymake/flymake.el" (22858
-;;;;;;  35116 392777 533000))
+;;;### (autoloads nil "flymake/flymake" "flymake/flymake.el" (22896
+;;;;;;  21220 615240 738000))
 ;;; Generated autoloads from flymake/flymake.el
 
 (autoload 'flymake-mode "flymake/flymake" "\
@@ -1220,6 +1220,27 @@ Pre-save hook to be used before running autopep8.
 
 ;;;***
 
+;;;### (autoloads nil "rainbow-delimiters/rainbow-delimiters" "rainbow-delimiters/rainbow-delimiters.el"
+;;;;;;  (22896 18214 723943 944000))
+;;; Generated autoloads from rainbow-delimiters/rainbow-delimiters.el
+
+(autoload 'rainbow-delimiters-mode "rainbow-delimiters/rainbow-delimiters" "\
+Highlight nested parentheses, brackets, and braces according to their depth.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'rainbow-delimiters-mode-enable "rainbow-delimiters/rainbow-delimiters" "\
+Enable `rainbow-delimiters-mode'.
+
+\(fn)" nil nil)
+
+(autoload 'rainbow-delimiters-mode-disable "rainbow-delimiters/rainbow-delimiters" "\
+Disable `rainbow-delimiters-mode'.
+
+\(fn)" nil nil)
+
+;;;***
+
 ;;;### (autoloads nil "uuidgen/uuidgen" "uuidgen/uuidgen.el" (22856
 ;;;;;;  41306 416111 978000))
 ;;; Generated autoloads from uuidgen/uuidgen.el
@@ -1304,10 +1325,11 @@ function.
 ;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el" "emacs-async/async-pkg.el"
 ;;;;;;  "emacs-async/async-test.el" "emacs-async/smtpmail-async.el"
 ;;;;;;  "fuzzy/fuzzy.el" "pony-mode/src/pony-mode-pkg.el" "pony-mode/src/pony-tpl.el"
-;;;;;;  "popup/popup.el" "request/request-deferred.el" "request/request.el"
-;;;;;;  "web-server/web-server-status-codes.el" "web-server/web-server-test.el"
-;;;;;;  "websocket/websocket-functional-test.el" "websocket/websocket-test.el"
-;;;;;;  "websocket/websocket.el") (22887 31949 416634 143000))
+;;;;;;  "popup/popup.el" "rainbow-delimiters/rainbow-delimiters-test.el"
+;;;;;;  "request/request-deferred.el" "request/request.el" "web-server/web-server-status-codes.el"
+;;;;;;  "web-server/web-server-test.el" "websocket/websocket-functional-test.el"
+;;;;;;  "websocket/websocket-test.el" "websocket/websocket.el") (22896
+;;;;;;  18214 723943 944000))
 
 ;;;***
 

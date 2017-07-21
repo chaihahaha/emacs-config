@@ -1,4 +1,6 @@
-((("highlight-parentheses-mode" .
+(((":foreground" .
+   [0 0 0 0 0 1 0 0 0 0 0])
+  ("highlight-parentheses-mode" .
    [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0])
   ("stdio" .
    [0 0 0 1 0])
@@ -19,4 +21,6 @@
   ("global-highlight-parentheses-mode" .
    [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0])
   ("helm-config" .
-   [0 0 0 0 0 0 0 0 0 0 1])))
+   [0 0 0 0 0 0 0 0 0 0 1])
+  ("rainbow-delimiters" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1])))
