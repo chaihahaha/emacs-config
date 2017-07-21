@@ -18,7 +18,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages (quote (elpy))))
 (custom-set-faces
- '(rainbow-delimiters-depth-1-face ((t (:foreground "Black"))))
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "White"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "Blue"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "Magenta"))))
  '(rainbow-delimiters-depth-4-face ((t (:foreground "Green"))))
