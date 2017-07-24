@@ -41,5 +41,5 @@
 (show-paren-mode)
 (elpy-enable)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-(add-hook 'elpy-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
